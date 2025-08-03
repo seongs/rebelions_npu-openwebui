@@ -1,19 +1,4 @@
-# 1.vllm_api+openwebui.sh
-
-> 🧠 Powered by [vLLM](https://github.com/vllm-project/vllm), [rebellions](https://github.com/rebellions-sw), and [OpenWebUI](https://github.com/open-webui/open-webui)
-
-
----
-
-## 🔧 구성 요소
-
-- **모델 컴파일**: Hugging Face 기반 모델 → RBLN 지원 모델
-- **OpenAI-compatible API 서버**: OpenAI `/v1/chat/completions` 프로토콜 지원
-- **OpenWebUI**: Web 기반 채팅 인터페이스
-
----
-
-# 2.rebellion_npu+triton_inference_server+openwebui.sh
+# rebelions_npu+openwebui
 
 > 🧠 Powered by [vLLM](https://github.com/vllm-project/vllm), [rebellions](https://github.com/rebellions-sw), , and [OpenWebUI](https://github.com/open-webui/open-webui)
 
