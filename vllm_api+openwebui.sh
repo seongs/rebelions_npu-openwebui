@@ -3,6 +3,7 @@
 # 0. 설정
 MODEL_ID="meta-llama/Meta-Llama-3-8B-Instruct"
 COMPILED_MODEL_DIR="./rbln-Llama-3-8B-Instruct"
+PARALLEL_SIZE=4
 
 # 1. Rebellions NPU용 모델 컴파일 (최초 1회만 수행되면 이후 생략 가능)
 echo "[1] Rebellions NPU용 모델 컴파일 시작..."
@@ -12,7 +13,7 @@ compiled_model = RBLNLlamaForCausalLM.from_pretrained(
     model_id='$MODEL_ID',
     export=True,
     rbln_max_seq_len=16384,
-    rbln_tensor_parallel_size=4,
+    rbln_tensor_parallel_size=$PARALLEL_SIZE,
     rbln_batch_size=1
 )
 compiled_model.save_pretrained('$COMPILED_MODEL_DIR')
