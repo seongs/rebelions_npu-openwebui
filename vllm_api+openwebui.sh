@@ -3,7 +3,7 @@
 # 0. 설정
 MODEL_ID="meta-llama/Meta-Llama-3-8B-Instruct"
 COMPILED_MODEL_DIR="./rbln-Llama-3-8B-Instruct"
-PARALLEL_SIZE= 4
+PARALLEL_SIZE=4
 
 # 1. Rebellions NPU용 모델 컴파일 (최초 1회만 수행되면 이후 생략 가능)
 echo "[1] Rebellions NPU용 모델 컴파일 시작..."
