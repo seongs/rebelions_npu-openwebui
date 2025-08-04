@@ -9,7 +9,7 @@ PARALLEL_SIZE=4
 echo "[1] Rebellions NPU용 모델 컴파일 시작..."
 python3 -c "
 from optimum.rbln import RBLNAutoModelForCausalLM
-compiled_model = RBLNLlamaForCausalLM.from_pretrained(
+compiled_model = RBLNAutoModelForCausalLM.from_pretrained(
     model_id='$MODEL_ID',
     export=True,
     rbln_max_seq_len=16384,
