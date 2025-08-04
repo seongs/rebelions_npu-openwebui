@@ -2,9 +2,10 @@
 set -e
 
 MODEL_ID="meta-llama/Meta-Llama-3-8B-Instruct"
-COMPILED_DIR="rbln-Llama-3-8B-Instruct"
-MODEL_REPO_PATH="/opt/chatnpu/vllm_backend/samples/model_repository/vllm_model/1"
+COMPILED_DIR="Llama-3-8B-Instruct"
+MODEL_REPO_PATH="/opt/chatnpu/vllm_backend/samples/model_repository/$COMPILED_DIR/1"
 VLLM_BACKEND_DIR="/opt/chatnpu/vllm_backend"
+PARALLEL_SIZE=4
 
 # 1. 모델 컴파일
 echo "[1] Compiling model with RBLN..."
@@ -14,7 +15,7 @@ model = RBLNLlamaForCausalLM.from_pretrained(
     model_id='$MODEL_ID',
     export=True,
     rbln_max_seq_len=8192,
-    rbln_tensor_parallel_size=4,
+    rbln_tensor_parallel_size=$PARALLEL_SIZE,
     rbln_batch_size=1
 )
 model.save_pretrained('$COMPILED_DIR')
