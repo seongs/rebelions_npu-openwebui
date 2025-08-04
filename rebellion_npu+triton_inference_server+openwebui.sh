@@ -3,14 +3,14 @@ set -e
 
 MODEL_ID="meta-llama/Meta-Llama-3-8B-Instruct"
 COMPILED_DIR="Llama-3-8B-Instruct"
-MODEL_REPO_PATH="/opt/chatnpu/vllm_backend/samples/model_repository/$COMPILED_DIR/1"
-VLLM_BACKEND_DIR="/opt/chatnpu/vllm_backend"
+MODEL_REPO_PATH="/workspace/vllm_backend/samples/model_repository/$COMPILED_DIR/1"
+VLLM_BACKEND_DIR="/workspace/vllm_backend/"
 PARALLEL_SIZE=4
 
 # 1. 모델 컴파일
 echo "[1] Compiling model with RBLN..."
 python3 -c "
-from optimum.rbln import RBLNLlamaForCausalLM
+from optimum.rbln import RBLNAutoModelForCausalLM
 model = RBLNAutoModelForCausalLM.from_pretrained(
     model_id='$MODEL_ID',
     export=True,
@@ -31,7 +31,7 @@ cp -r $COMPILED_DIR/* $MODEL_REPO_PATH
 echo "[3] Writing model.json..."
 cat > $MODEL_REPO_PATH/model.json <<EOF
 {
-    "model": "$MODEL_REPO_PATH/model.json",
+    "model": "/opt/tritonserver/$MODEL_REPO_PATH/model.json",
     "device": "rbln",
     "max_num_seqs": 4,
     "max_num_batched_tokens": 8192,
