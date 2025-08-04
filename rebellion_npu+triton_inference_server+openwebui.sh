@@ -11,7 +11,7 @@ PARALLEL_SIZE=4
 echo "[1] Compiling model with RBLN..."
 python3 -c "
 from optimum.rbln import RBLNLlamaForCausalLM
-model = RBLNLlamaForCausalLM.from_pretrained(
+model = RBLNAutoModelForCausalLM.from_pretrained(
     model_id='$MODEL_ID',
     export=True,
     rbln_max_seq_len=8192,
