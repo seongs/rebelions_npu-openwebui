@@ -5,6 +5,7 @@ MODEL_ID="/model/EXAONE-3.5-2.4B-Instruct"
 COMPILED_MODEL_DIR="EXAONE-3.5-2.4B-Instruct"
 PARALLEL_SIZE=4
 IP=$(hostname -I | awk '{print $1}')
+MAX_SEQ_LEN=16384 
 
 # 1. 모델 컴파일
 echo "[1] Rebellions NPU용 모델 컴파일 시작..."
@@ -13,7 +14,7 @@ from optimum.rbln import RBLNAutoModelForCausalLM
 compiled_model = RBLNAutoModelForCausalLM.from_pretrained(
     model_id='$MODEL_ID',
     export=True,
-    rbln_max_seq_len=16384,
+    rbln_max_seq_len=$MAX_SEQ_LEN,
     rbln_tensor_parallel_size=$PARALLEL_SIZE,
     rbln_batch_size=1
 )
@@ -31,9 +32,9 @@ nohup python3 -m vllm.entrypoints.openai.api_server \
   --model "$COMPILED_MODEL_DI" \
   --device rbln \
   --max-num-seqs 1 \
-  --max-num-batched-tokens 16384 \
-  --max-model-len 16384 \
-  --block-size 16384 > /var/log/chatnpu_llm.log 2>&1 &
+  --max-num-batched-tokens $MAX_SEQ_LEN \
+  --max-model-len $MAX_SEQ_LEN \
+  --block-size $MAX_SEQ_LEN > /var/log/chatnpu_llm.log 2>&1 &
 
 sleep 5  # 잠깐 대기 후 프로세스 확인
 ps aux | grep "vllm.entrypoints.openai.api_server" | grep -v grep > /dev/null
